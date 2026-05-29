@@ -1,4 +1,5 @@
 import time
+from selenium.common.exceptions import TimeoutException
 
 from Pages.universitet_page import UniversitetPage
 from Pages.talabalar_page import TalabalarPage
@@ -7,8 +8,13 @@ from Pages.virtual_reception_page import VirtualReception
 from Pages.search_function import Search
 from Pages.social_media_page import SocialMediaPage
 
-def test_inha_pages_chrome(driver_chrome):   # Chrome browser Positive Test
-    driver_chrome.get('https://inha.uz/uz/asosiy/')
+def test_inha_pages_chrome(driver_chrome):
+    # Пытаемся открыть сайт, если таймаут — пробуем еще один раз
+    try:
+        driver_chrome.get('https://inha.uz/uz/asosiy/')
+    except TimeoutException:
+        print("Сайт не загрузился за 30 секунд, пробуем обновить страницу...")
+        driver_chrome.refresh()
 
     universitet_page = UniversitetPage(driver_chrome)
     universitet_page.click_universitet_dropdown()

@@ -22,5 +22,9 @@ def driver_chrome():
     # Отключаем возможные баги с определением автоматизации
     options.add_argument("--disable-blink-features=AutomationControlled")
     driver = webdriver.Chrome(options=options)
+
+    # ИСПРАВЛЕНО: Ограничиваем время ожидания загрузки HTML-страницы до 30 секунд
+    driver.set_page_load_timeout(30)
+
     yield driver
     driver.quit()
