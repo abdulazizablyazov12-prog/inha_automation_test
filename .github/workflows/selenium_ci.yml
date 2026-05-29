@@ -2,6 +2,10 @@ name: Selenium Python CI
 
 on: [push, pull_request]
 
+# ИСПРАВЛЕНО: Добавлен блок глобальных переменных окружения
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   test:
     runs-on: ubuntu-latest
